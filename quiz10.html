@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friendly Route</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        #background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -10;
+            opacity: 50%;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-color: rgb(242, 237, 237);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            opacity: 90%;
+        }
+
+        .progress-container {
+            width: 800px;
+            height: 30px;
+            background-color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 90%; /* Initial progress at 10% */
+            height: 100%;
+            background-color: lightpink;
+            border-radius: 15px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .genie-animation {
+            width: 200px;
+            height: 200px;
+            background-image: url('genie-eyes-open.png');
+            background-size: cover;
+            animation: blink 1s infinite steps(1) alternate;
+            margin-right: 40px;
+        }
+
+        @keyframes blink {
+            0%, 90% { background-image: url('genie-eyes-open.png'); }
+            91%, 100% { background-image: url('genie-wink.png'); }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        p {
+            font-size: 1.0rem;
+            margin-top: 10px;
+        }
+
+        .option-button {
+            padding: 20px 30px;
+            background-color: #5087d4;
+            border: none;
+            color: white;
+            font-size: 1.0rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-family: monospace;
+            margin-top: 20px; 
+            margin-left: 10px;
+        }
+
+        .option-button:hover {
+            background-color: #406ba8;
+        }
+    </style>
+    <!-- Custom Modal -->
+<div id="customAlert" class="modal">
+    <div class="modal-content">
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+</div>
+
+<style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        font-family: monospace;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 800px; /* Restricts width for a cleaner look */
+        width: 90%; /* Ensures responsiveness */
+    }
+
+    .modal-content p {
+        font-size: 1.2rem;
+    }
+
+    .red-text {
+        color: red;
+        font-weight: bold;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #6ea1e9;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        font-family: monospace;
+    }
+
+    button:hover {
+        background-color: #417dd1;
+    }
+</style>
+
+<script>
+    let nextPage = ""; // Stores the next page URL
+
+    function showAlert(isCorrect) {
+        let message = isCorrect 
+            ? '✅ Correct! You cannot claim AI generated works as your own because of copyright risks and ethics. <br> <span class="red-text">+10 points</span>' 
+            : '❌ Incorrect! You cannot claim AI generated works as your own because of copyright risks and ethics.';
+
+        document.getElementById("alertMessage").innerHTML = message;
+        document.getElementById("customAlert").style.display = "flex";
+
+        // Store the next page URL based on correctness
+        nextPage = isCorrect ? 'end.html' : 'restart.html';
+    }
+
+    function closeAlert() {
+        document.getElementById("customAlert").style.display = "none";
+        location.href = nextPage; // Redirect when OK is clicked
+    }
+</script>
+
+</head>
+<body>
+    <img id="background-image" src="background.jpg" alt="Background">
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            <div class="progress-text">Friendship Level - 90% </div>
+        </div>
+        <div class="genie-animation"></div>
+        <div class="content">
+            <h1>I can use Gen AI's work as my own since it's based on my prompt.</h1>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showAlert(false)">True</button>
+                <button class="option-button" onclick="showAlert(true)">False</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

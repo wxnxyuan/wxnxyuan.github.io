@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Befriending Genie - Page 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        #background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -10;
+            opacity: 50%;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-color: rgb(242, 237, 237);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            opacity: 95%;
+        }
+
+        .progress-bar {
+            width: 800px;
+            height: 30px;
+            background-color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #333;
+            position: absolute;
+            top: 20px;
+        }
+
+        .genie-animation {
+            width: 200px;
+            height: 200px;
+            background-image: url('genie-eyes-open.png');
+            background-size: cover;
+            animation: blink 1s infinite steps(1) alternate;
+            margin-right: 40px;
+        }
+
+        @keyframes blink {
+            0%, 90% { background-image: url('genie-eyes-open.png'); }
+            91%, 100% { background-image: url('genie-wink.png'); }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .options {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .option-button {
+            padding: 20px 30px;
+            background-color: #5087d4;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-family: monospace;
+            margin-top: 15px
+        }
+
+        .option-button:hover {
+            background-color: #406ba8;
+        }
+    </style>
+</head>
+<body>
+    <img id="background-image" src="background.jpg" alt="Background">
+    <div class="container">
+        <div class="progress-bar">Friendship Level</div>
+        <div class="genie-animation"></div>
+        <h1>You recently made a new Robo-friend! <br> Meet Genie!</h1>
+        <div class="options">
+            <button class="option-button" onclick="location.href='friendly_route.html'">Hi Genie!</button>
+            <button class="option-button" onclick="location.href='language_barrier.html'">Beep Boop</button>
+        </div>
+    </div>
+</body>
+</html>

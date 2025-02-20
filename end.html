@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besties with Genie!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -10;
+            opacity: 50%;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-color: rgb(242, 237, 237);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            opacity: 90%;
+        }
+
+        .progress-container {
+            width: 800px;
+            height: 30px;
+            background-color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            background-color: lightpink;
+            border-radius: 15px;
+            transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
+            animation: progressBarFlash 2s infinite, progressBarAnimate 3s ease-in-out;
+        }
+
+        @keyframes progressBarFlash {
+            0% { background-color: lightpink; }
+            25% { background-color: lightblue; }
+            50% { background-color: lightgreen; }
+            75% { background-color: lightcoral; }
+            100% { background-color: lightyellow; }
+        }
+
+        @keyframes progressBarAnimate {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .genie-animation {
+            width: 200px;
+            height: 200px;
+            background-image: url('genie-adore.png');
+            background-size: cover;
+            animation: blink 2s infinite steps(1) alternate;
+            margin-top: 20px;
+        }
+
+        @keyframes blink {
+            0%, 90% { background-image: url('genie-adore.png'); }
+            91%, 100% { background-image: url('genie-excite.png'); }
+        }
+
+        .balloon {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: red;
+            border-radius: 50%;
+            animation: floatBalloons 5s infinite ease-in-out;
+        }
+
+        @keyframes floatBalloons {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            animation: confettiFall 3s infinite ease-out;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .besties-text {
+            display: inline-block;
+            color: #ff69b4;
+            font-weight: bold;
+            animation: textPulse 1.5s infinite alternate, textColor 3s infinite alternate;
+            margin-top: 20px;
+        }
+
+        @keyframes textPulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes textColor {
+            0% { color: #ff69b4; }
+            50% { color: #ff4d4d; }
+            100% { color: #ffcc00; }
+        }
+
+        .option-button {
+            padding: 15px 30px;
+            background-color: #6ea1e9;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        .option-button:hover {
+            background-color: #417dd1;
+        }
+    </style>
+</head>
+<body>
+    <img id="background-image" src="background.jpg" alt="Background">
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            <div class="progress-text">Friendship Level: MAX!</div>
+        </div>
+        <div class="genie-animation"></div>
+        <h1>You and Genie are officially <br><span class="besties-text">🎉 BESTIES!!! 🎉</span></h1>
+        <button class="option-button" onclick="location.href='genie.html'">Back to Home</button>
+    </div>
+
+    <script>
+        function createBalloons() {
+            for (let i = 0; i < 10; i++) {
+                let balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                balloon.style.left = `${Math.random() * 100}vw`;
+                balloon.style.animationDuration = `${3 + Math.random() * 3}s`;
+                document.body.appendChild(balloon);
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 20; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.background = `hsl(${Math.random() * 360}, 80%, 50%)`;
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${1.5 + Math.random()}s`;
+                document.body.appendChild(confetti);
+            }
+        }
+
+        createBalloons();
+        createConfetti();
+    </script>
+</body>
+</html>

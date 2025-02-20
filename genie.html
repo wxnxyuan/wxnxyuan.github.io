@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Befriending Genie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: monospace; 
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        #background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -10;
+            opacity: 50%;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-color: rgb(242, 237, 237);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            opacity: 90%;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .genie-animation {
+            width: 200px;
+            height: 200px;
+            background-image: url('genie-eyes-open.png');
+            background-size: cover;
+            animation: blink 1s infinite steps(1) alternate;
+            margin-bottom: 20px;
+            margin-right: 50px;
+            position: relative;
+        }
+
+        @keyframes blink {
+            0%, 90% { background-image: url('genie-eyes-open.png'); }
+            91%, 100% { background-image: url('genie-wink.png'); }
+        }
+
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            margin-left: 20px;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(173, 216, 230, 0.8);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: floatParticles 3s infinite linear;
+        }
+
+        @keyframes floatParticles {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .start-button {
+            padding: 20px 30px;
+            background-color: #5087d4;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-family: monospace;
+        }
+
+        .start-button:hover {
+            background-color: #406ba8;
+        }
+    </style>
+</head>
+<body>
+    <img id="background-image" src="background.jpg" alt="Background">
+    <div class="container">
+        <h1>Befriending Genie</h1>
+        <p>Make choices to strengthen your friendship with Genie!<br> Your choices affect the outcome.</p>
+        <div class="genie-animation">
+            <div class="particle-container" id="particles"></div>
+        </div>
+        <button class="start-button" onclick="location.href='page2.html'">I'm ready</button>
+    </div>
+
+    <script>
+        function createParticles() {
+            const particleContainer = document.getElementById('particles');
+            for (let i = 0; i < 10; i++) {
+                let particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 180}px`; 
+                particle.style.top = `${Math.random() * 180}px`; 
+                particle.style.animationDelay = `${Math.random() * 3}s`; 
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>
